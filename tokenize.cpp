@@ -2,37 +2,59 @@
 
 #include "tokenize.hpp"
 
-std::vector<std::string> Tokenizer::parse(std::istream & code) {
+Tokenizer::Tokenizer() {
+
+	delims.push_back(' ');
+	delims.push_back('(');
+	delims.push_back(')');
+
+}
+
+std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 	std::vector<std::string> expr;
 
-	std::string lineBuffer;
-	std::string spaceBuffer;
-	std::string oParenBuffer;
-	std::string cParenBuffer;
+	char buffer;
 	std::string token;
 
-	while (std::getline(code, lineBuffer)) {
-		
-		std::stringstream ssLineBuffer(lineBuffer);
-		while (std::getline(ssLineBuffer, spaceBuffer, ' ')) {
+	while (code.get(buffer)) {
 
-			std::stringstream ssSpaceBuffer(spaceBuffer);
-			while (std::getline(ssSpaceBuffer, oParenBuffer, '(')) {
+		if (isDelim(buffer)) {
 
-				std::stringstream ssOParentBuffer(oParenBuffer);
-				while (std::getline(ssOParentBuffer, cParenBuffer, ')')) {
-
-					expr.push_back(cParenBuffer);
-
-				}
-
+			// Save the token into expr if needed
+			if (token != "") {
+				expr.push_back(token);
 			}
 
+			// Clear the token
+			token = "";
+
+			// Save parens as well
+			if (buffer == '(' || buffer == ')') {
+				expr.push_back(std::string(1, buffer));
+			}
+
+		}
+		else {
+			token.push_back(buffer);
 		}
 
 	}
 
 	return expr;
+
+}
+
+bool Tokenizer::isDelim(char check) {
+
+	bool ret = false;
+
+	for (auto it = delims.begin(); it != delims.end(); ++it) {
+		if (check == *it) {
+			ret = true;
+		}
+	}
+
+	return ret;
 
 }

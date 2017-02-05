@@ -9,6 +9,14 @@ class Tokenizer {
 
 public:
 
-	std::vector<std::string> parse(std::istream & code);
+	Tokenizer();
+
+	std::vector<std::string> tokenize(std::istream & code);
+
+private:
+
+	std::vector<char> delims;
+
+	bool isDelim(char check);
 
 };
