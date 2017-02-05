@@ -41,6 +41,10 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 	}
 
+	if (token != "") {
+		expr.push_back(token);
+	}
+
 	return expr;
 
 }
