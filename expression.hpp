@@ -1,5 +1,9 @@
 // File: expression.hpp
 
+#ifndef EXPRESSION_H
+#define EXPRESSION_H
+
+
 #include <string>
 
 class Expression {
@@ -23,3 +27,5 @@ public:
 	bool operator==(const Expression & exp) const noexcept;
 
 };
+
+#endif // EXPRESSION_H

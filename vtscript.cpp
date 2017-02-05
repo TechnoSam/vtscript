@@ -10,6 +10,15 @@
 
 int main(int argc, char* argv[]) {
 
-	
+	Tokenizer tkn;
+	std::string testS = "(begin   (define b pi)(if (< a b) b a))";
+	std::stringstream ssTest(testS);
+	std::vector<std::string> test = tkn.parse(ssTest);
+
+	for (unsigned int i = 0; i < test.size(); i++) {
+		std::cout << test.at(i) << ", ";
+	}
+
+	std::cout << std::endl;
 
 }
