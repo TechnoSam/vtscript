@@ -49,6 +49,30 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 }
 
+ASTNode Tokenizer::buildAST(std::vector<std::string> tokens) {
+
+	ASTNode curr;
+
+	for (auto it = tokens.begin(); it != tokens.end(); ++it) {
+
+		if (*it == "(") { // Move down
+			++it;
+			curr.appendChild(*it);
+			curr = curr.lastChild();
+		}
+		else if (*it == ")") { // Move up
+			curr = curr.parent();
+		}
+		else {
+			curr.appendChild(*it);
+		}
+
+	}
+
+	// If curr's parent is not the root, then we have a paren error
+
+}
+
 bool Tokenizer::isDelim(char check) {
 
 	bool ret = false;

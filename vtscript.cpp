@@ -11,7 +11,7 @@
 int main(int argc, char* argv[]) {
 
 	Tokenizer tkn;
-	std::string testS = "5";
+	std::string testS = "(begin   (define b pi)(if (< a b) b a))";
 	std::stringstream ssTest(testS);
 	std::vector<std::string> test = tkn.tokenize(ssTest);
 
