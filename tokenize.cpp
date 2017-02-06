@@ -61,7 +61,7 @@ ASTNode Tokenizer::buildAST(std::vector<std::string> tokens) {
 			curr = curr.lastChild();
 		}
 		else if (*it == ")") { // Move up
-			curr = curr.parent();
+			curr = curr.getParent();
 		}
 		else {
 			curr.appendChild(*it);
@@ -70,7 +70,7 @@ ASTNode Tokenizer::buildAST(std::vector<std::string> tokens) {
 	}
 
 	// If curr's parent is not the root, then we have a paren error
-
+	return curr;
 }
 
 bool Tokenizer::isDelim(char check) {
