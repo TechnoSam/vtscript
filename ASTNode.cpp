@@ -13,13 +13,13 @@ ASTNode::~ASTNode() {
 
 }
 
-ASTNode ASTNode::getParent() {
+ASTNode* ASTNode::getParent() {
 
-	return *parent;
+	return parent;
 
 }
 
-ASTNode ASTNode::lastChild() {
+ASTNode* ASTNode::lastChild() {
 
 	return children.at(children.size() - 1);
 
@@ -27,9 +27,9 @@ ASTNode ASTNode::lastChild() {
 
 void ASTNode::appendChild(std::string data) {
 
-	ASTNode child;
-	child.data = data;
-	child.parent = this;
+	ASTNode* child = new ASTNode();
+	child->data = data;
+	child->parent = this;
 	children.push_back(child);
 
 }

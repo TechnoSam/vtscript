@@ -14,9 +14,9 @@ public:
 
 	~ASTNode();
 
-	ASTNode getParent();
+	ASTNode* getParent();
 
-	ASTNode lastChild();
+	ASTNode* lastChild();
 
 	void appendChild(std::string data);
 
@@ -24,7 +24,7 @@ private:
 
 	ASTNode* parent;
 
-	std::vector<ASTNode> children;
+	std::vector<ASTNode*> children;
 
 	std::string data;
 

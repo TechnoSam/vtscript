@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 		std::cout << test.at(i) << ", ";
 	}
 
-	ASTNode testAST = tkn.buildAST(test);
+	ASTNode* testAST = tkn.buildAST(test);
 
 	std::cout << std::endl;
 

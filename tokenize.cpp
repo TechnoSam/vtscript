@@ -49,22 +49,22 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 }
 
-ASTNode Tokenizer::buildAST(std::vector<std::string> tokens) {
+ASTNode* Tokenizer::buildAST(std::vector<std::string> tokens) {
 
-	ASTNode curr;
+	ASTNode* curr = new ASTNode();
 
 	for (auto it = tokens.begin(); it != tokens.end(); ++it) {
 
 		if (*it == "(") { // Move down
 			++it;
-			curr.appendChild(*it);
-			curr = curr.lastChild();
+			curr->appendChild(*it);
+			curr = curr->lastChild();
 		}
 		else if (*it == ")") { // Move up
-			curr = curr.getParent();
+			curr = curr->getParent();
 		}
 		else {
-			curr.appendChild(*it);
+			curr->appendChild(*it);
 		}
 
 	}

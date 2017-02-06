@@ -15,7 +15,7 @@ public:
 
 	std::vector<std::string> tokenize(std::istream & code);
 
-	ASTNode buildAST(std::vector<std::string> tokens);
+	ASTNode* buildAST(std::vector<std::string> tokens);
 
 private:
 
