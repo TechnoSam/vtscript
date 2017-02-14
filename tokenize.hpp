@@ -1,4 +1,8 @@
 // File: tokenize.hpp
+// Author: Samuel McFalls
+
+#ifndef TOKENIZE_H
+#define TOKENIZE_H
 
 #include <vector>
 #include <string>
@@ -24,3 +28,5 @@ private:
 	bool isDelim(char check);
 
 };
+
+#endif

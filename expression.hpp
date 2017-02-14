@@ -1,4 +1,5 @@
 // File: expression.hpp
+// Author: Samuel McFalls
 
 #ifndef EXPRESSION_H
 #define EXPRESSION_H

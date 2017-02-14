@@ -19,7 +19,12 @@ int main(int argc, char* argv[]) {
 		std::cout << test.at(i) << ", ";
 	}
 
-	ASTNode* testAST = tkn.buildAST(test);
+	try {
+		ASTNode* testAST = tkn.buildAST(test);
+	}
+	catch (std::runtime_error &exception) {
+		std::cerr << std::endl << exception.what() << std::endl;
+	}
 
 	std::cout << std::endl;
 

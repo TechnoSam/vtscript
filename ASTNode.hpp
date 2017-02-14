@@ -12,13 +12,19 @@ public:
 
 	ASTNode();
 
+	ASTNode::ASTNode(std::string dataInit);
+
 	~ASTNode();
 
 	ASTNode* getParent();
 
 	ASTNode* lastChild();
 
+	std::vector<ASTNode*> getChildren();
+
 	void appendChild(std::string data);
+
+	std::string getData();
 
 private:
 

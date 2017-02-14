@@ -1,4 +1,8 @@
 // File: interpreter.hpp
+// Author: Samuel McFalls
+
+#ifndef INTERPRETER_H
+#define INTERPRETER_H
 
 #include <fstream>
 #include "expression.hpp"
@@ -21,3 +25,5 @@ public:
 	Expression eval();
 
 };
+
+#endif

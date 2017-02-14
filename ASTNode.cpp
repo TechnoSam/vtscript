@@ -9,6 +9,13 @@ ASTNode::ASTNode() {
 
 }
 
+ASTNode::ASTNode(std::string dataInit) {
+
+	parent = nullptr;
+	data = dataInit;
+
+}
+
 ASTNode::~ASTNode() {
 
 }
@@ -25,11 +32,23 @@ ASTNode* ASTNode::lastChild() {
 
 }
 
+std::vector<ASTNode*> ASTNode::getChildren() {
+
+	return children;
+
+}
+
 void ASTNode::appendChild(std::string data) {
 
 	ASTNode* child = new ASTNode();
 	child->data = data;
 	child->parent = this;
 	children.push_back(child);
+
+}
+
+std::string ASTNode::getData() {
+
+	return data;
 
 }

@@ -1,4 +1,5 @@
 // File: tokenize.cpp
+// Author: Samuel McFalls
 
 #include "tokenize.hpp"
 
@@ -51,16 +52,22 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 ASTNode* Tokenizer::buildAST(std::vector<std::string> tokens) {
 
-	ASTNode* curr = new ASTNode();
+	ASTNode* curr = new ASTNode("root");
 
 	for (auto it = tokens.begin(); it != tokens.end(); ++it) {
 
 		if (*it == "(") { // Move down
 			++it;
+			if (*it == "(" || *it == ")") {
+				throw std::runtime_error("Bad syntax");
+			}
 			curr->appendChild(*it);
 			curr = curr->lastChild();
 		}
 		else if (*it == ")") { // Move up
+			if (curr->getParent() == nullptr) {
+				throw std::runtime_error("Mismatched parenthesis");
+			}
 			curr = curr->getParent();
 		}
 		else {
@@ -70,6 +77,10 @@ ASTNode* Tokenizer::buildAST(std::vector<std::string> tokens) {
 	}
 
 	// If curr's parent is not the root, then we have a paren error
+	if (curr->getParent() != nullptr) {
+		throw std::runtime_error("Mismatched parenthesis");
+	}
+
 	return curr;
 }
 
