@@ -9,6 +9,8 @@ set(interpreter_src
   expression.hpp expression.cpp
   environment.hpp environment.cpp
   interpreter.hpp interpreter.cpp
+  atom.hpp atom.cpp
+  EnvEntry.hpp EnvEntry.cpp
   )
 
 # EDIT
@@ -17,6 +19,11 @@ set(test_src
   catch.hpp
   unittests.cpp
   test_interpreter.cpp
+  test_atom.cpp
+  test_EnvEntry.cpp
+  test_environment.cpp
+  test_expression.cpp
+  test_tokenize.cpp
 )
 
 # EDIT

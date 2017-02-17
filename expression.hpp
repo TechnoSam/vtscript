@@ -32,10 +32,6 @@ public:
 	// type, atom value, and number of arguments
 	bool operator==(const Expression & exp) const noexcept;
 
-	// Gets the parent of an Expression
-	// @return The parent of the Expression
-	Expression* getParent() const;
-
 	// Gets the last child of an Expression
 	// @return The last child of the Expression if it has children, nullptr otherwise
 	Expression lastChild() const;
@@ -48,6 +44,8 @@ public:
 	// @param atomAppend The atom to be held by the appended Expression
 	void appendChild(Atom atomAppend);
 
+	// Apples a child to an Expression
+	// @param expAppend The Expression to append
 	void appendChild(Expression expAppend);
 
 	// Gets the Atom held by an Expression
@@ -55,8 +53,6 @@ public:
 	Atom getAtom() const;
 
 private:
-
-	//Expression* parent;
 
 	std::vector<Expression> children;
 
