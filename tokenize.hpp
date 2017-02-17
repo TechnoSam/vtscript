@@ -10,6 +10,7 @@
 #include <sstream>
 
 #include "ASTNode.hpp"
+#include "expression.hpp"
 
 class Tokenizer {
 
@@ -21,7 +22,15 @@ public:
 
 	ASTNode* buildAST(std::vector<std::string> tokens);
 
+	Expression buildAST2(std::vector<std::string>& tokens);
+
 private:
+	
+	void recursiveBuildAST(Expression& node, std::vector<std::string>& tokens);
+
+	Atom selectAtom(std::string value);
+
+	Atom::Type whatType(std::string value);
 
 	std::vector<char> delims;
 

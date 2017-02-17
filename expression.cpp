@@ -5,8 +5,6 @@
 
 Expression::Expression() {
 
-	parent = nullptr;
-
 	// Children is already empty
 
 	atom = Atom();
@@ -14,8 +12,6 @@ Expression::Expression() {
 }
 
 Expression::Expression(bool value) {
-
-	parent = nullptr;
 
 	// Children is already empty
 
@@ -25,8 +21,6 @@ Expression::Expression(bool value) {
 
 Expression::Expression(double value) {
 
-	parent = nullptr;
-
 	// Children is already empty
 
 	atom = Atom(value);
@@ -35,11 +29,17 @@ Expression::Expression(double value) {
 
 Expression::Expression(const std::string & value) {
 
-	parent = nullptr;
-
 	// Children is already empty
 
 	atom = Atom(value);
+
+}
+
+Expression::Expression(const Atom& atomValue) {
+
+	// Children is already empty
+
+	atom = atomValue;
 
 }
 
@@ -61,17 +61,17 @@ bool Expression::operator==(const Expression & exp) const noexcept {
 
 Expression* Expression::getParent() const {
 
-	return parent;
+	return nullptr;
 
 }
 
-Expression* Expression::lastChild() const {
+Expression Expression::lastChild() const {
 
 	return children.at(children.size() - 1);
 
 }
 
-std::vector<Expression*> Expression::getChildren() const {
+std::vector<Expression> Expression::getChildren() const {
 
 	return children;
 
@@ -79,10 +79,14 @@ std::vector<Expression*> Expression::getChildren() const {
 
 void Expression::appendChild(Atom atomAppend) {
 
-	Expression* child = new Expression();
-	child->atom = atom;
-	child->parent = this;
+	Expression child = Expression(atomAppend);
 	children.push_back(child);
+
+}
+
+void Expression::appendChild(Expression expAppend) {
+
+	children.push_back(expAppend);
 
 }
 
