@@ -5,17 +5,45 @@
 
 EnvEntry::EnvEntry(bool value) {
 
+	type = BOOL;
+
+	boolVal = value;
+	numberVal = 0.0;
+	boolFunc = nullptr;
+	numberFunc = nullptr;
+
 }
 
 EnvEntry::EnvEntry(double value) {
+
+	type = NUMBER;
+
+	boolVal = false;
+	numberVal = value;
+	boolFunc = nullptr;
+	numberFunc = nullptr;
 
 }
 
 EnvEntry::EnvEntry(fptrBool func) {
 
+	type = FPTR_BOOL;
+
+	boolVal = false;
+	numberVal = 0.0;
+	boolFunc = func;
+	numberFunc = nullptr;
+
 }
 
 EnvEntry::EnvEntry(fptrNumber func) {
+
+	type = FPTR_NUMBER;
+
+	boolVal = false;
+	numberVal = 0.0;
+	boolFunc = nullptr;
+	numberFunc = func;
 
 }
 
@@ -27,28 +55,36 @@ EnvEntry::Type EnvEntry::getType() {
 
 bool EnvEntry::getBool() {
 
-	return false;
+	if (type != BOOL)
+		throw std::logic_error("Environment Entry is not of type Bool");
+
+	return boolVal;
 
 }
 
 double EnvEntry::getNumber() {
 
-	return 0.0;
+	if (type != NUMBER)
+		throw std::logic_error("Environment Entry is not of type Number");
+
+	return numberVal;
 
 }
 
 EnvEntry::fptrBool EnvEntry::getFptrBool() {
 
-	fptrBool temp;
+	if (type != FPTR_BOOL)
+		throw std::logic_error("Environment Entry is not of type Bool Function Pointer");
 
-	return temp;
+	return boolFunc;
 
 }
 
 EnvEntry::fptrNumber EnvEntry::getFptrNumber() {
 
-	fptrNumber temp;
+	if (type != FPTR_NUMBER)
+		throw std::logic_error("Environment Entry is not of type Number Function Pointer");
 
-	return temp;
+	return numberFunc;
 
 }

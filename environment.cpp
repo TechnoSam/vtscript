@@ -3,13 +3,17 @@
 
 #include "environment.hpp"
 
-bool define(std::string, EnvEntry) {
+Environment::Environment() {
+
+}
+
+bool Environment::define(std::string, EnvEntry) {
 
 	return false;
 
 }
 
-EnvEntry fetch(std::string) {
+EnvEntry Environment::fetch(std::string) {
 
 	return EnvEntry(false);
 

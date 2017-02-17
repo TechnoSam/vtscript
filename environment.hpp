@@ -10,6 +10,8 @@ class Environment {
 
 public:
 
+	Environment();
+
 	bool define(std::string, EnvEntry);
 
 	EnvEntry fetch(std::string);

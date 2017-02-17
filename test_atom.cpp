@@ -69,7 +69,7 @@ TEST_CASE("Tests the equality operator for Atoms", "[atom]") {
 
 }
 
-TEST_CASE("Tests exception throwing for invalid access", "[atom]") {
+TEST_CASE("Tests exception throwing for invalid access on Atoms", "[atom]") {
 
 	Atom aNone = Atom();
 	Atom aBool = Atom(true);
