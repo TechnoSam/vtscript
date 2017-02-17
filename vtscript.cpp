@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
 	Tokenizer tkn;
 	// Good test
 	// (if (< a b) b )a
-	std::string testS = "(begin(define a 1)(define (b) pi)(if (< a b) b a))";
+	std::string testS = "(begin\t(define a 1)\t(define b pi)\t(if (< a b) b a))";
 	std::stringstream ssTest(testS);
 
 	std::vector<std::string> test;
@@ -29,15 +29,8 @@ int main(int argc, char* argv[]) {
 		std::cout << test.at(i) << ", ";
 	}
 
-	/*try {
-		ASTNode* testAST = tkn.buildAST(test);
-	}
-	catch (std::runtime_error &exception) {
-		std::cerr << std::endl << exception.what() << std::endl;
-	}*/
-
 	try {
-		Expression testEx = tkn.buildAST2(test);
+		Expression testEx = tkn.buildAST(test);
 	}
 	catch (std::runtime_error &exception) {
 		std::cerr << std::endl << exception.what() << std::endl;

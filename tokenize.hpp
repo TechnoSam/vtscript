@@ -20,13 +20,11 @@ public:
 
 	std::vector<std::string> tokenize(std::istream & code);
 
-	ASTNode* buildAST(std::vector<std::string> tokens);
-
-	Expression buildAST2(std::vector<std::string>& tokens);
+	Expression buildAST(std::vector<std::string>& tokens);
 
 private:
 	
-	void recursiveBuildAST(Expression& node, std::vector<std::string>& tokens);
+	void recursiveBuildAST(Expression& node, std::vector<std::string>& tokens, std::vector<std::string>::iterator& it);
 
 	Atom selectAtom(std::string value);
 

@@ -8,6 +8,7 @@ Tokenizer::Tokenizer() {
 	delims.push_back(' ');
 	delims.push_back('(');
 	delims.push_back(')');
+	delims.push_back('\t');
 
 }
 
@@ -26,7 +27,7 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 		if (isDelim(buffer)) {
 
 			// Save the token into expr if needed
-			if (token != "") { // TODO check for tabs
+			if (token != "") {
 				expr.push_back(token);
 			}
 
@@ -57,60 +58,25 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 }
 
-ASTNode* Tokenizer::buildAST(std::vector<std::string> tokens) {
-
-	ASTNode* curr = new ASTNode("root");
-
-	for (auto it = tokens.begin(); it != tokens.end(); ++it) {
-
-		if (*it == "(") { // Move down
-			++it;
-			if (*it == "(" || *it == ")") {
-				throw std::runtime_error("Bad syntax");
-			}
-			curr->appendChild(*it);
-			curr = curr->lastChild();
-		}
-		else if (*it == ")") { // Move up
-			if (curr->getParent() == nullptr) {
-				throw std::runtime_error("Mismatched parenthesis");
-			}
-			curr = curr->getParent();
-		}
-		else {
-			curr->appendChild(*it);
-		}
-
-	}
-
-	// If curr's parent is not the root, then we have a paren error
-	if (curr->getParent() != nullptr) {
-		throw std::runtime_error("Mismatched parenthesis");
-	}
-
-	return curr;
-}
-
-Expression Tokenizer::buildAST2(std::vector<std::string>& tokens) {
+Expression Tokenizer::buildAST(std::vector<std::string>& tokens) {
 	
 	Expression node;
-	if (tokens.size() < 2) {
-		throw std::runtime_error("Not enough tokens");
-	}
-	if (tokens.front() != "(") {
+	auto it = tokens.begin();
+
+	if (*it != "(") {
 		throw std::runtime_error("Bad syntax");
 	}
-	tokens.erase(tokens.begin());
-	if (tokens.front() == "(" || tokens.front() == ")") {
+	it++;
+	if (*it == "(" || *it == ")") {
 		throw std::runtime_error("Bad syntax");
 	}
-	Atom atom = selectAtom(tokens.front());
-	tokens.erase(tokens.begin());
+	Atom atom = selectAtom(*it);
+	it++;
 	node = Expression(atom);
 
-	recursiveBuildAST(node, tokens);
+	recursiveBuildAST(node, tokens, it);
 
-	if (!tokens.empty()) {
+	if (it != tokens.end()) {
 		throw std::runtime_error("Mismatched parenthesis");
 	}
 
@@ -118,58 +84,32 @@ Expression Tokenizer::buildAST2(std::vector<std::string>& tokens) {
 
 }
 
-void Tokenizer::recursiveBuildAST(Expression& node, std::vector<std::string>& tokens) {
+void Tokenizer::recursiveBuildAST(Expression& node, std::vector<std::string>& tokens, std::vector<std::string>::iterator& it) {
 
-	while (!tokens.empty()) {
-		if (tokens.front() == "(") {
-			tokens.erase(tokens.begin());
-			if (tokens.size() < 2) {
+	while (it != tokens.end()) {
+		if (*it == "(") {
+			it++;
+			if (*it == "(" || *it == ")") {
 				throw std::runtime_error("Bad syntax");
 			}
-			if (tokens.front() == "(" || tokens.front() == ")") {
-				throw std::runtime_error("Bad syntax");
-			}
-			Atom atom = selectAtom(tokens.front());
-			tokens.erase(tokens.begin());
+			Atom atom = selectAtom(*it);
+			it++;
 			Expression exp = Expression(atom);
-			recursiveBuildAST(exp, tokens);
+			recursiveBuildAST(exp, tokens, it);
 			node.appendChild(exp);
 		}
-		else if (tokens.front() == ")") {
-			tokens.erase(tokens.begin());
+		else if (*it == ")") {
+			it++;
 			return;
 		}
 		else {
-			Atom atom = selectAtom(tokens.front());
-			tokens.erase(tokens.begin());
+			Atom atom = selectAtom(*it);
+			it++;
 			node.appendChild(atom);
-			recursiveBuildAST(node, tokens);
+			recursiveBuildAST(node, tokens, it);
 			return;
 		}
 	}
-
-	/*while (tokens.front() != "(" && tokens.front() != ")") {
-		Atom atom = selectAtom(tokens.front());
-		tokens.erase(tokens.begin());
-		node.appendChild(atom);
-	}
-	if (tokens.front() == "(") {
-		tokens.erase(tokens.begin());
-		if (tokens.size() < 2) {
-			throw std::runtime_error("Bad syntax");
-		}
-		if (tokens.front() == "(" || tokens.front() == ")") {
-			throw std::runtime_error("Bad syntax");
-		}
-		Atom atom = selectAtom(tokens.front());
-		node.appendChild(atom);
-		recursiveBuildAST(node.lastChild(), tokens);
-	}
-	else {
-		tokens.erase(tokens.begin());
-		return;
-	}*/
-
 
 }
 
