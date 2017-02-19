@@ -34,7 +34,7 @@ public:
 
 	// Gets the last child of an Expression
 	// @return The last child of the Expression if it has children, nullptr otherwise
-	Expression lastChild() const;
+	Expression lastChild();
 
 	// Gets all children of an Expression
 	// @return The vector of child pointers

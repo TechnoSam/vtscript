@@ -21,15 +21,15 @@ bool andProc(std::vector<Atom> args) {
 	if (args.empty())
 		throw InterpreterSemanticError("No arguments to m-ary AND procedure");
 
-	bool and = true;
+	bool andR = true;
 	for (auto it = args.begin(); it != args.end(); ++it) {
 		Atom curr = *it;
 		if (curr.getType() != Atom::Type::BOOL)
 			throw InterpreterSemanticError("Improper type for BOOL AND procedure");
-		and = and && curr.getBool();
+		andR = andR && curr.getBool();
 	}
 
-	return and;
+	return andR;
 
 }
 
@@ -38,15 +38,15 @@ bool orProc(std::vector<Atom> args) {
 	if (args.empty())
 		throw InterpreterSemanticError("No arguments to m-ary OR procedure");
 
-	bool or = false;
+	bool orR = false;
 	for (auto it = args.begin(); it != args.end(); ++it) {
 		Atom curr = *it;
 		if (curr.getType() != Atom::Type::BOOL)
 			throw InterpreterSemanticError("Improper type for BOOL OR procedure");
-		or = or || curr.getBool();
+		orR = orR || curr.getBool();
 	}
 
-	return or;
+	return orR;
 
 }
 

@@ -59,7 +59,7 @@ bool Expression::operator==(const Expression & exp) const noexcept {
 
 }
 
-Expression Expression::lastChild() const {
+Expression Expression::lastChild() {
 
 	return children.at(children.size() - 1);
 

@@ -84,19 +84,23 @@ TEST_CASE("Test valid defining and fetching in the Environment", "[environment]"
 	entry = EnvEntry(fNumber);
 	REQUIRE_NOTHROW(env.define("FNumber", entry));
 
-	REQUIRE_NOTHROW(result = env.fetch("Bool"));
+	REQUIRE_NOTHROW(env.fetch("Bool"));
+	result = env.fetch("Bool");
 	REQUIRE(result.getType() == EnvEntry::Type::BOOL);
 	REQUIRE(result.getBool() == true);
 
-	REQUIRE_NOTHROW(result = env.fetch("Number"));
+	REQUIRE_NOTHROW(env.fetch("Number"));
+	result = env.fetch("Number");
 	REQUIRE(result.getType() == EnvEntry::Type::NUMBER);
 	REQUIRE(result.getNumber() == 117.6);
 
-	REQUIRE_NOTHROW(result = env.fetch("FBool"));
+	REQUIRE_NOTHROW(env.fetch("FBool"));
+	result = env.fetch("FBool");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
 	REQUIRE(result.getFptrBool() == fBool);
 
-	REQUIRE_NOTHROW(result = env.fetch("FNumber"));
+	REQUIRE_NOTHROW(env.fetch("FNumber"));
+	result = env.fetch("FNumber");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_NUMBER);
 	REQUIRE(result.getFptrNumber() == fNumber);
 }
@@ -111,7 +115,7 @@ TEST_CASE("Test invalid defining and fetching in the Environment", "[environment
 	REQUIRE_NOTHROW(env.define("Bool", entry));
 	REQUIRE_THROWS(env.define("Bool", entry));
 
-	REQUIRE_NOTHROW(result = env.fetch("Bool"));
-	REQUIRE_THROWS(result = env.fetch("DNE"));
+	REQUIRE_NOTHROW(env.fetch("Bool"));
+	REQUIRE_THROWS(env.fetch("DNE"));
 
 }

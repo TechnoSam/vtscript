@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <ctype.h>
+#include <stdexcept>
 
 #include "expression.hpp"
 

@@ -5,6 +5,7 @@
 #define ATOM_H
 
 #include <string>
+#include <stdexcept>
 
 class Atom {
 
