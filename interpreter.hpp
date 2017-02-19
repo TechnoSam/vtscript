@@ -6,6 +6,8 @@
 
 #include <fstream>
 #include "expression.hpp"
+#include "environment.hpp"
+#include "tokenize.hpp"
 #include "interpreter_semantic_error.hpp"
 
 class Interpreter {
@@ -23,6 +25,14 @@ public:
 	// throws InterpreterSemanticError if a semantic error is encountered
 	// the exception message string should document the nature of the semantic error 
 	Expression eval();
+
+private:
+
+	Tokenizer tkn;
+	Expression AST;
+	Environment env;
+
+	Expression postEval(Expression exp);
 
 };
 

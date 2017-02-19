@@ -10,30 +10,30 @@ TEST_CASE("Tests tokenizer method", "[tokenize]") {
 	Tokenizer tkn;
 	
 	std::string prog = "(begin\t(define    a    1)\t(define (b) pi)\t(if (< a b) b a))";
-	std::stringstream ss(prog);
+	std::stringstream ss1(prog);
 
 	std::vector<std::string> tkns;
-	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss));
+	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss1));
 	std::vector<std::string> tkns_check = {"(", "begin", "(", "define", "a", "1", ")",
 		"(", "define", "(", "b", ")", "pi", ")",
 		"(", "if", "(", "<", "a", "b", ")", "b", "a", ")", ")"};
 	REQUIRE(tkns == tkns_check);
 
 	prog = "((+ 1 2))";
-	std::stringstream ss(prog);
-	REQUIRE_THROWS(tkns = tkn.tokenize(ss));
+	std::stringstream ss2(prog);
+	REQUIRE_THROWS(tkns = tkn.tokenize(ss2));
 
 	prog = "()";
-	std::stringstream ss(prog);
-	REQUIRE_THROWS(tkns = tkn.tokenize(ss));
+	std::stringstream ss3(prog);
+	REQUIRE_THROWS(tkns = tkn.tokenize(ss3));
 
 	prog = "(+ 1 2";
-	std::stringstream ss(prog);
-	REQUIRE_THROWS(tkns = tkn.tokenize(ss));
+	std::stringstream ss4(prog);
+	REQUIRE_THROWS(tkns = tkn.tokenize(ss4));
 
 	prog = "+ 1 2)";
-	std::stringstream ss(prog);
-	REQUIRE_THROWS(tkns = tkn.tokenize(ss));
+	std::stringstream ss5(prog);
+	REQUIRE_THROWS(tkns = tkn.tokenize(ss5));
 
 	prog = "(if (< a b) b )a";
 	std::stringstream ss(prog);

@@ -26,6 +26,8 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 		if (isDelim(buffer)) {
 
+			if (!isValidToken(token)) { throw std::runtime_error("Invalid token"); }
+
 			// Save the token into expr if needed
 			if (token != "") {
 				expr.push_back(token);
@@ -48,11 +50,14 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 	}
 
+	if (!isValidToken(token)) { throw std::runtime_error("Invalid token"); }
 	if (token != "") {
 		expr.push_back(token);
 	}
 
 	if (openCount != closeCount) { throw std::runtime_error("Mismatched parenthesis"); }
+
+	if (expr.empty()) { throw std::runtime_error("Empty program"); }
 
 	return expr;
 
@@ -169,4 +174,18 @@ Atom::Type Tokenizer::whatType(std::string value) {
 
 	return ret;
 
+}
+
+bool Tokenizer::isValidToken(std::string token) {
+
+	bool valid = true;
+	if (isdigit(token[0]) && token.length() > 1) {
+		for (unsigned int i = 1; i < token.length(); i++) {
+			if (!isdigit(token[i]) && token[i] != '.') {
+				valid = false;
+			}
+		}
+	}
+
+	return valid;
 }

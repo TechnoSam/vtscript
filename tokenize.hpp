@@ -8,6 +8,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <ctype.h>
 
 #include "expression.hpp"
 
@@ -41,6 +42,8 @@ private:
 	std::vector<char> delims;
 
 	bool isDelim(char check);
+
+	bool isValidToken(std::string token);
 
 };
 

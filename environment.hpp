@@ -28,8 +28,14 @@ public:
 
 	// Gets the value associated with a symbol
 	// @param symbol The key associated with the desired value
+	// @return The value associated with the given key
 	// @throw InterpreterSemanticError if the symbol is not found
 	EnvEntry fetch(std::string symbol);
+
+	// Checks if a symbol is defined
+	// @param symbol The key to check
+	// return True if the key is defined, false otherwise
+	bool exists(std::string symbol);
 
 private:
 

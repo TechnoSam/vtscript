@@ -65,3 +65,9 @@ EnvEntry Environment::fetch(std::string symbol) {
 	return env[symbol];
 
 }
+
+bool Environment::exists(std::string symbol) {
+
+	return env.find(symbol) != env.end();
+
+}
