@@ -10,57 +10,72 @@ TEST_CASE("Tests the Environment constructor", "[environment]") {
 	Environment env;
 	EnvEntry result;
 
+	EnvEntry::fptrBool notFptr = notProc;
+	EnvEntry::fptrBool andFptr = andProc;
+	EnvEntry::fptrBool orFptr = orProc;
+
+	EnvEntry::fptrBool ltFptr = ltProc;
+	EnvEntry::fptrBool lteFptr = lteProc;
+	EnvEntry::fptrBool gtFptr = gtProc;
+	EnvEntry::fptrBool gteFptr = gteProc;
+	EnvEntry::fptrBool equalFptr = equalProc;
+
+	EnvEntry::fptrNumber sumFptr = sumProc;
+	EnvEntry::fptrNumber subFptr = subProc;
+	EnvEntry::fptrNumber multFptr = multProc;
+	EnvEntry::fptrNumber divFptr = divProc;
+
 	result = env.fetch("pi");
 	REQUIRE(result.getType() == EnvEntry::Type::NUMBER);
 	REQUIRE(result.getNumber() == atan2(0, -1));
 
 	result = env.fetch("not");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == notProc);
+	REQUIRE(result.getFptrBool() == notFptr);
 
 	result = env.fetch("and");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == andProc);
+	REQUIRE(result.getFptrBool() == andFptr);
 
 	result = env.fetch("or");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == orProc);
+	REQUIRE(result.getFptrBool() == orFptr);
 
 	result = env.fetch("<");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == ltProc);
+	REQUIRE(result.getFptrBool() == ltFptr);
 
 	result = env.fetch("<=");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == lteProc);
+	REQUIRE(result.getFptrBool() == lteFptr);
 
 	result = env.fetch(">");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == gtProc);
+	REQUIRE(result.getFptrBool() == gtFptr);
 
 	result = env.fetch(">=");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == gteProc);
+	REQUIRE(result.getFptrBool() == gteFptr);
 
 	result = env.fetch("=");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_BOOL);
-	//REQUIRE(result.getFptrBool() == equalProc);
+	REQUIRE(result.getFptrBool() == equalFptr);
 
 	result = env.fetch("+");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_NUMBER);
-	//REQUIRE(result.getFptrNumber() == sumProc);
+	REQUIRE(result.getFptrNumber() == sumFptr);
 
 	result = env.fetch("-");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_NUMBER);
-	//REQUIRE(result.getFptrNumber() == subProc);
+	REQUIRE(result.getFptrNumber() == subFptr);
 
 	result = env.fetch("*");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_NUMBER);
-	//REQUIRE(result.getFptrNumber() == multProc);
+	REQUIRE(result.getFptrNumber() == multFptr);
 
 	result = env.fetch("/");
 	REQUIRE(result.getType() == EnvEntry::Type::FPTR_NUMBER);
-	//REQUIRE(result.getFptrNumber() == divProc);
+	REQUIRE(result.getFptrNumber() == divFptr);
 
 }
 
