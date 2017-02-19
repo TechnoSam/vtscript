@@ -11,6 +11,7 @@ set(interpreter_src
   interpreter.hpp interpreter.cpp
   atom.hpp atom.cpp
   EnvEntry.hpp EnvEntry.cpp
+  proc.hpp proc.cpp
   )
 
 # EDIT
@@ -24,6 +25,7 @@ set(test_src
   test_environment.cpp
   test_expression.cpp
   test_tokenize.cpp
+  test_proc.cpp
 )
 
 # EDIT

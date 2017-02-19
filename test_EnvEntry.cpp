@@ -1,3 +1,6 @@
+// File: test_EnvEntry.cpp
+// Author: Samuel McFalls
+
 #include "catch.hpp"
 
 #include "EnvEntry.hpp"
@@ -21,6 +24,7 @@ double numberFunc(std::vector<Atom> args) {
 
 TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 
+	EnvEntry eNone = EnvEntry();
 	EnvEntry eBool = EnvEntry(true);
 	EnvEntry eNumber = EnvEntry(2.5);
 	EnvEntry::fptrBool boolFuncPtr = boolFunc;
@@ -28,6 +32,7 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 	EnvEntry::fptrNumber numFuncPtr = numberFunc;
 	EnvEntry eNumFunc = EnvEntry(numFuncPtr);
 
+	REQUIRE(eNone.getType() == EnvEntry::Type::NONE);
 	REQUIRE(eBool.getType() == EnvEntry::Type::BOOL);
 	REQUIRE(eNumber.getType() == EnvEntry::Type::NUMBER);
 	REQUIRE(eBoolFunc.getType() == EnvEntry::Type::FPTR_BOOL);
@@ -47,12 +52,18 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 
 TEST_CASE("Tests exception throwing for invalid access on EnvEntries", "[enventry]") {
 
+	EnvEntry eNone = EnvEntry();
 	EnvEntry eBool = EnvEntry(true);
 	EnvEntry eNumber = EnvEntry(2.5);
 	EnvEntry::fptrBool boolFuncPtr = boolFunc;
 	EnvEntry eBoolFunc = EnvEntry(boolFuncPtr);
 	EnvEntry::fptrNumber numFuncPtr = numberFunc;
 	EnvEntry eNumFunc = EnvEntry(numFuncPtr);
+
+	REQUIRE_THROWS_AS(eNone.getBool(), std::logic_error);
+	REQUIRE_THROWS_AS(eNone.getNumber(), std::logic_error);
+	REQUIRE_THROWS_AS(eNone.getFptrBool(), std::logic_error);
+	REQUIRE_THROWS_AS(eNone.getFptrNumber(), std::logic_error);
 
 	REQUIRE_THROWS_AS(eBool.getNumber(), std::logic_error);
 	REQUIRE_THROWS_AS(eBool.getFptrBool(), std::logic_error);

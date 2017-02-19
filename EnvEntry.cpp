@@ -3,6 +3,17 @@
 
 #include "EnvEntry.hpp"
 
+EnvEntry::EnvEntry() {
+
+	type = NONE;
+
+	boolVal = false;
+	numberVal = 0.0;
+	boolFunc = nullptr;
+	numberFunc = nullptr;
+
+}
+
 EnvEntry::EnvEntry(bool value) {
 
 	type = BOOL;
