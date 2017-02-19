@@ -2,7 +2,6 @@
 // Author: Samuel McFalls
 
 #include "tokenize.hpp"
-#include <iostream>
 
 Tokenizer::Tokenizer() {
 
@@ -34,7 +33,6 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 
 			if (isDelim(buffer)) {
 
-				//std::cout << buffer << std::endl;
 				if (!isValidToken(token)) { throw std::runtime_error("Invalid token"); }
 
 				// Save the token into expr if needed
@@ -97,10 +95,6 @@ Expression Tokenizer::buildAST(std::vector<std::string>& tokens) {
 	recursiveBuildAST(node, tokens, it);
 
 	if (it != tokens.end()) {
-		/*for (auto it2 = tokens.begin(); it2 != tokens.end(); it2++) {
-			std::cout << "\"" << *it2 << "\", ";
-		}
-		std::cout << std::endl;*/
 		throw std::runtime_error("Mismatched parenthesis");
 	}
 
