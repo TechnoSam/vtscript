@@ -2,6 +2,7 @@
 // Author: Samuel McFalls
 
 #include "interpreter.hpp"
+#include <iostream>
 
 Interpreter::Interpreter() {
 
@@ -18,11 +19,17 @@ bool Interpreter::parse(std::istream & expression) noexcept {
 	catch (...) {
 		return false;
 	}
+	/*std::cout << "Tokenized\n";
+	for (auto it2 = tokens.begin(); it2 != tokens.end(); it2++) {
+		std::cout << "\"" << int(it2->at(0)) << "\", ";
+	}*/
+	std::cout << std::endl;
 
 	try {
 		AST = tkn.buildAST(tokens);
 	}
-	catch (...) {
+	catch (std::runtime_error e) {
+		std::cout << e.what() << std::endl;
 		return false;
 	}
 	

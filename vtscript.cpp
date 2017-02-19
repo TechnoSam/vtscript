@@ -6,8 +6,8 @@
 #include <fstream>
 #include "interpreter.hpp"
 
-void runLine(std::string program, Interpreter& interp);
-void run(std::istream& program, Interpreter& interp);
+bool runLine(std::string program, Interpreter& interp);
+bool run(std::istream& program, Interpreter& interp);
 
 int main(int argc, char* argv[]) {
 
@@ -25,15 +25,19 @@ int main(int argc, char* argv[]) {
 			std::cerr << usage << std::endl;
 			return EXIT_FAILURE;
 		}
-		runLine(argv[2], interp);
+		if (!runLine(argv[2], interp)) {
+			return EXIT_FAILURE;
+		}
 	}
 	else if (argc == 2) { // Run from file
 		std::ifstream ifs(argv[1]);
 		if (!ifs.good()) {
-			std::cerr << "Could not find or open file: " << argv[1] << std::endl;
+			std::cerr << "Error: Could not find or open file: " << argv[1] << std::endl;
 			return EXIT_FAILURE;
 		}
-		run(ifs, interp);
+		if (!run(ifs, interp)) {
+			return EXIT_FAILURE;
+		}
 	}
 	else { // REPL
 		std::cout << "vtscript> ";
@@ -48,12 +52,12 @@ int main(int argc, char* argv[]) {
 
 }
 
-void run(std::istream& program, Interpreter& interp) {
+bool run(std::istream& program, Interpreter& interp) {
 
 	bool ok = interp.parse(program);
 	if (!ok) {
 		std::cerr << "Error: Failed to parse invalid expression" << std::endl;
-		return;
+		return false;
 	}
 	
 	Expression result;
@@ -63,7 +67,7 @@ void run(std::istream& program, Interpreter& interp) {
 	catch (InterpreterSemanticError e) {
 		interp = Interpreter(); // Reseting the interpreter resets the environment
 		std::cerr << "Error during evaluation: " << e.what() << std::endl;
-		return;
+		return false;
 	}
 
 	if (result.getAtom().getType() == Atom::Type::BOOL) {
@@ -74,11 +78,13 @@ void run(std::istream& program, Interpreter& interp) {
 		std::cout << "(" << result.getAtom().getNumber() << ")" << std::endl;
 	}
 
+	return true;
+
 }
 
-void runLine(std::string program, Interpreter& interp) {
+bool runLine(std::string program, Interpreter& interp) {
 
 	std::istringstream iss(program);
-	run(iss, interp);
+	return run(iss, interp);
 
 }

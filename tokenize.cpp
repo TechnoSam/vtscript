@@ -2,6 +2,7 @@
 // Author: Samuel McFalls
 
 #include "tokenize.hpp"
+#include <iostream>
 
 Tokenizer::Tokenizer() {
 
@@ -9,7 +10,6 @@ Tokenizer::Tokenizer() {
 	delims.push_back('(');
 	delims.push_back(')');
 	delims.push_back('\t');
-	delims.push_back('\n');
 	delims.push_back(';');
 
 }
@@ -24,41 +24,45 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 	size_t openCount = 0;
 	size_t closeCount = 0;
 
-	while (code.get(buffer)) {
+	std::string codeLine;
 
-		if (isDelim(buffer)) {
+	while (std::getline(code, codeLine)) {
 
-			if (!isValidToken(token)) { throw std::runtime_error("Invalid token"); }
+		std::stringstream codeLineS(codeLine);
 
-			// Save the token into expr if needed
-			if (token != "") {
-				expr.push_back(token);
-			}
+		while (codeLineS.get(buffer)) {
 
-			// Clear the token
-			token = "";
+			if (isDelim(buffer)) {
 
-			// Save parens as well
-			if (buffer == '(' || buffer == ')') {
-				expr.push_back(std::string(1, buffer));
-				if (buffer == '(') { openCount++; }
-				else { closeCount++; }
-			}
+				//std::cout << buffer << std::endl;
+				if (!isValidToken(token)) { throw std::runtime_error("Invalid token"); }
 
-			// If we hit a semi-colon, read until newline or EOF
-			if (buffer == ';') {
-				while (!code.eof()) {
-					code.get(buffer);
-					if (buffer == '\n')
-						break;
+				// Save the token into expr if needed
+				if (token != "") {
+					expr.push_back(token);
 				}
+
+				// Clear the token
+				token = "";
+
+				// Save parens as well
+				if (buffer == '(' || buffer == ')') {
+					expr.push_back(std::string(1, buffer));
+					if (buffer == '(') { openCount++; }
+					else { closeCount++; }
+				}
+
+				// If we hit a semi-colon, read until newline or EOF
+				if (buffer == ';') {
+					break;
+				}
+
+			}
+			else {
+				token.push_back(buffer);
 			}
 
 		}
-		else {
-			token.push_back(buffer);
-		}
-
 	}
 
 	if (!isValidToken(token)) { throw std::runtime_error("Invalid token"); }
@@ -93,6 +97,10 @@ Expression Tokenizer::buildAST(std::vector<std::string>& tokens) {
 	recursiveBuildAST(node, tokens, it);
 
 	if (it != tokens.end()) {
+		/*for (auto it2 = tokens.begin(); it2 != tokens.end(); it2++) {
+			std::cout << "\"" << *it2 << "\", ";
+		}
+		std::cout << std::endl;*/
 		throw std::runtime_error("Mismatched parenthesis");
 	}
 
