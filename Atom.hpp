@@ -34,14 +34,17 @@ public:
 	Type getType();
 
 	// Gets the BOOL value of an Atom
+	// @return The BOOL value of the Atom
 	// @throw logic_error if Atom is not of type BOOL
 	bool getBool();
 
 	// Gets the NUMBER value of an Atom
+	// @return The NUMBER value of the Atom
 	// @throw logic_error if Atom is not of type NUMBER
 	double getNumber();
 	
 	// Gets the SYMBOL value of an Atom
+	// @return The SYMBOL value of the Atom
 	// @throw logic_error if Atom is not of type SYMBOL
 	std::string getSymbol();
 
