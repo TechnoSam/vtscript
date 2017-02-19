@@ -9,6 +9,7 @@ Tokenizer::Tokenizer() {
 	delims.push_back('(');
 	delims.push_back(')');
 	delims.push_back('\t');
+	delims.push_back('\n');
 
 }
 

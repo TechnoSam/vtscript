@@ -19,13 +19,15 @@ TEST_CASE("Tests tokenizer method", "[tokenize]") {
 		"(", "if", "(", "<", "a", "b", ")", "b", "a", ")", ")"};
 	REQUIRE(tkns == tkns_check);
 
+	// Passes tokenization but not building
 	prog = "((+ 1 2))";
 	std::stringstream ss2(prog);
-	REQUIRE_THROWS(tkns = tkn.tokenize(ss2));
+	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss2));
 
+	// Passes tokenization but not building
 	prog = "()";
 	std::stringstream ss3(prog);
-	REQUIRE_THROWS(tkns = tkn.tokenize(ss3));
+	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss3));
 
 	prog = "(+ 1 2";
 	std::stringstream ss4(prog);
