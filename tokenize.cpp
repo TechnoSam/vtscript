@@ -10,6 +10,7 @@ Tokenizer::Tokenizer() {
 	delims.push_back(')');
 	delims.push_back('\t');
 	delims.push_back('\n');
+	delims.push_back(';');
 
 }
 
@@ -42,6 +43,15 @@ std::vector<std::string> Tokenizer::tokenize(std::istream & code) {
 				expr.push_back(std::string(1, buffer));
 				if (buffer == '(') { openCount++; }
 				else { closeCount++; }
+			}
+
+			// If we hit a semi-colon, read until newline or EOF
+			if (buffer == ';') {
+				while (!code.eof()) {
+					code.get(buffer);
+					if (buffer == '\n')
+						break;
+				}
 			}
 
 		}
