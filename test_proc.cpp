@@ -10,11 +10,11 @@
 TEST_CASE("Tests the not procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(true) };
-	REQUIRE(notProc(args) == true);
+	REQUIRE(notProc(args) == false);
 
 	args.clear();
 	args = { Atom(false) };
-	REQUIRE(notProc(args) == false);
+	REQUIRE(notProc(args) == true);
 
 	args.clear();
 	REQUIRE_THROWS(notProc(args));
@@ -53,22 +53,22 @@ TEST_CASE("Tests the and procedure", "[proc]") {
 TEST_CASE("Tests the or procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(true) };
-	REQUIRE(andProc(args) == true);
+	REQUIRE(orProc(args) == true);
 
 	args.clear();
 	args = { Atom(false), Atom(false), Atom(false) };
-	REQUIRE(andProc(args) == false);
+	REQUIRE(orProc(args) == false);
 
 	args.clear();
 	args = { Atom(false), Atom(false), Atom(true) };
-	REQUIRE(andProc(args) == true);
+	REQUIRE(orProc(args) == true);
 
 	args.clear();
-	REQUIRE_THROWS(andProc(args));
+	REQUIRE_THROWS(orProc(args));
 
 	args.clear();
 	args = { Atom(true), Atom(2.5) };
-	REQUIRE_THROWS(andProc(args));
+	REQUIRE_THROWS(orProc(args));
 
 }
 
@@ -191,29 +191,29 @@ TEST_CASE("Tests the greater than equal procedure", "[proc]") {
 TEST_CASE("Tests the equal procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(1.0), Atom(2.0) };
-	REQUIRE(ltProc(args) == false);
+	REQUIRE(equalProc(args) == false);
 
 	args.clear();
 	args = { Atom(2.0), Atom(1.0) };
-	REQUIRE(ltProc(args) == false);
+	REQUIRE(equalProc(args) == false);
 
 	args.clear();
 	args = { Atom(1.5), Atom(1.5) };
-	REQUIRE(ltProc(args) == true);
+	REQUIRE(equalProc(args) == true);
 
 	args.clear();
-	REQUIRE_THROWS(ltProc(args));
+	REQUIRE_THROWS(equalProc(args));
 
 	args = { Atom(1.0), Atom(2.0), Atom(3.0) };
-	REQUIRE_THROWS(ltProc(args));
+	REQUIRE_THROWS(equalProc(args));
 
 	args.clear();
 	args = { Atom(1.0) };
-	REQUIRE_THROWS(ltProc(args));
+	REQUIRE_THROWS(equalProc(args));
 
 	args.clear();
 	args = { Atom(1.0), Atom(false) };
-	REQUIRE_THROWS(ltProc(args));
+	REQUIRE_THROWS(equalProc(args));
 
 }
 
@@ -253,11 +253,11 @@ TEST_CASE("Tests the sub procedure", "[proc]") {
 
 	args.clear();
 	args = { Atom(32.8), Atom(12.1) };
-	REQUIRE(subProc(args) == 20.7);
+	REQUIRE(subProc(args) == (32.8 - 12.1));
 
 	args.clear();
 	args = { Atom(12.1), Atom(32.8) };
-	REQUIRE(subProc(args) == -20.7);
+	REQUIRE(subProc(args) == (12.1 - 32.8));
 
 	args.clear();
 	REQUIRE_THROWS(subProc(args));
@@ -274,15 +274,15 @@ TEST_CASE("Tests the sub procedure", "[proc]") {
 TEST_CASE("Tests the mult procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(2.2), Atom(3.3), Atom(4.4) };
-	REQUIRE(multProc(args) == 31.944);
+	REQUIRE(multProc(args) == (2.2 * 3.3 * 4.4));
 
 	args.clear();
 	args = { Atom(2.2), Atom(-3.3), Atom(4.4) };
-	REQUIRE(multProc(args) == -31.944);
+	REQUIRE(multProc(args) == (2.2 * -3.3 * 4.4));
 
 	args.clear();
 	args = { Atom(2.2), Atom(-3.3), Atom(-4.4) };
-	REQUIRE(multProc(args) == 31.944);
+	REQUIRE(multProc(args) == (2.2 * -3.3 * -4.4));
 
 	args.clear();
 	args = { Atom(123.456) };
@@ -325,10 +325,6 @@ TEST_CASE("Tests the div procedure", "[proc]") {
 
 	args.clear();
 	args = { Atom(1.0), Atom(2.0), Atom(3.0) };
-	REQUIRE_THROWS(divProc(args));
-
-	args.clear();
-	args = { Atom(50.234), Atom(0.0) };
 	REQUIRE_THROWS(divProc(args));
 
 }
