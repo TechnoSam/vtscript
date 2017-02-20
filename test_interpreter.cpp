@@ -369,3 +369,26 @@ TEST_CASE( "Test all syntactically and semantically CORRECT files.", "[interpret
     REQUIRE(result == expected_result);
   }
 }
+
+TEST_CASE("Tests some weird cases", "[interpreter]") {
+
+	Interpreter interp;
+
+	std::string prog1 = "(asldkjfs  sdlfsk  \n(djsl eirusl))";
+	std::string prog2 = "(if (< 5 4) True )5.2";
+	std::string prog3 = "(if 500 True False)";
+	std::string prog4 = "(* 38e-3 4.2e6)";
+
+	std::stringstream ss1(prog1);
+	REQUIRE(interp.parse(ss1));
+
+	std::stringstream ss2(prog2);
+	REQUIRE(!interp.parse(ss2));
+
+	std::stringstream ss3(prog3);
+	REQUIRE(interp.parse(ss3));
+	REQUIRE_THROWS(interp.eval());
+
+	REQUIRE(run(prog4) == Expression(0.38 * 4200000));
+
+}
