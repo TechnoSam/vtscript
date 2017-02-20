@@ -120,6 +120,12 @@ TEST_CASE("Tests ASTBuilder method", "[tokenize]") {
 	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss3));
 	REQUIRE_THROWS(tkn.buildAST(tkns));
 
+	// Test exponential parsing
+	prog = "(32.e-1)";
+	std::stringstream ss4(prog);
+	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss4));
+	REQUIRE_NOTHROW(tkn.buildAST(tkns));
+
 	prog = "(if (< a b) b )a";
 	std::stringstream ss6(prog);
 	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss6));

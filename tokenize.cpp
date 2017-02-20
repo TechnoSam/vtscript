@@ -199,6 +199,19 @@ bool Tokenizer::isValidToken(std::string token) {
 			}
 		}
 	}
+	char *cstr = &token[0u];
+	if (isOnlyDouble(cstr)) { valid = true; }
 
 	return valid;
+}
+
+bool Tokenizer::isOnlyDouble(const char* str) {
+
+	char* endptr = 0;
+	strtod(str, &endptr);
+
+	if (*endptr != '\0' || endptr == str)
+		return false;
+	return true;
+
 }

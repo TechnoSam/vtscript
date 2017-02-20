@@ -389,6 +389,6 @@ TEST_CASE("Tests some weird cases", "[interpreter]") {
 	REQUIRE(interp.parse(ss3));
 	REQUIRE_THROWS(interp.eval());
 
-	REQUIRE(run(prog4) == Expression(0.38 * 4200000));
+	REQUIRE(run(prog4) == Expression(159600.));
 
 }

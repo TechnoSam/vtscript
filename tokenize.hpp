@@ -46,6 +46,8 @@ private:
 
 	bool isValidToken(std::string token);
 
+	bool isOnlyDouble(const char* str);
+
 };
 
 #endif
