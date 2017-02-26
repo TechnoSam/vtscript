@@ -43,9 +43,9 @@ TEST_CASE("Tests the EnvEntry constructors", "[enventry]") {
 	args1.push_back(Atom(2.0));
 	args1.push_back(Atom(3.0));
 
-	REQUIRE(eBool.getBool() == true);
+	REQUIRE(eBool.getBool());
 	REQUIRE(eNumber.getNumber() == 2.5);
-	REQUIRE(eBoolFunc.getFptrBool()(args1) == true);
+	REQUIRE(eBoolFunc.getFptrBool()(args1));
 	REQUIRE(eNumFunc.getFptrNumber()(args1) == 3.0);
 
 }

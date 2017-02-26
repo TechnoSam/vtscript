@@ -115,7 +115,7 @@ TEST_CASE("Test valid defining and fetching in the Environment", "[environment]"
 	REQUIRE_NOTHROW(env.fetch("Bool"));
 	result = env.fetch("Bool");
 	REQUIRE(result.getType() == EnvEntry::Type::BOOL);
-	REQUIRE(result.getBool() == true);
+	REQUIRE(result.getBool());
 
 	REQUIRE_NOTHROW(env.fetch("Number"));
 	result = env.fetch("Number");

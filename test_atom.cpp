@@ -16,7 +16,7 @@ TEST_CASE("Tests the Atom constructors", "[atom]") {
 	REQUIRE(aNumber.getType() == Atom::Type::NUMBER);
 	REQUIRE(aSymbol.getType() == Atom::Type::SYMBOL);
 
-	REQUIRE(aBool.getBool() == true);
+	REQUIRE(aBool.getBool());
 	REQUIRE(aNumber.getNumber() == 2.5);
 	REQUIRE(aSymbol.getSymbol() == "Test");
 

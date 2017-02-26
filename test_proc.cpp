@@ -10,11 +10,11 @@
 TEST_CASE("Tests the not procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(true) };
-	REQUIRE(notProc(args) == false);
+	REQUIRE(!notProc(args));
 
 	args.clear();
 	args = { Atom(false) };
-	REQUIRE(notProc(args) == true);
+	REQUIRE(notProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(notProc(args));
@@ -31,15 +31,15 @@ TEST_CASE("Tests the not procedure", "[proc]") {
 TEST_CASE("Tests the and procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(true) };
-	REQUIRE(andProc(args) == true);
+	REQUIRE(andProc(args));
 
 	args.clear();
 	args = { Atom(true), Atom(true), Atom(true) };
-	REQUIRE(andProc(args) == true);
+	REQUIRE(andProc(args));
 
 	args.clear();
 	args = { Atom(false), Atom(true), Atom(true) };
-	REQUIRE(andProc(args) == false);
+	REQUIRE(!andProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(andProc(args));
@@ -53,15 +53,15 @@ TEST_CASE("Tests the and procedure", "[proc]") {
 TEST_CASE("Tests the or procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(true) };
-	REQUIRE(orProc(args) == true);
+	REQUIRE(orProc(args));
 
 	args.clear();
 	args = { Atom(false), Atom(false), Atom(false) };
-	REQUIRE(orProc(args) == false);
+	REQUIRE(!orProc(args));
 
 	args.clear();
 	args = { Atom(false), Atom(false), Atom(true) };
-	REQUIRE(orProc(args) == true);
+	REQUIRE(orProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(orProc(args));
@@ -75,15 +75,15 @@ TEST_CASE("Tests the or procedure", "[proc]") {
 TEST_CASE("Tests the less than procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(1.0), Atom(2.0) };
-	REQUIRE(ltProc(args) == true);
+	REQUIRE(ltProc(args));
 
 	args.clear();
 	args = { Atom(2.0), Atom(1.0) };
-	REQUIRE(ltProc(args) == false);
+	REQUIRE(!ltProc(args));
 
 	args.clear();
 	args = { Atom(1.5), Atom(1.5) };
-	REQUIRE(ltProc(args) == false);
+	REQUIRE(!ltProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(ltProc(args));
@@ -104,15 +104,15 @@ TEST_CASE("Tests the less than procedure", "[proc]") {
 TEST_CASE("Tests the less than equal procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(1.0), Atom(2.0) };
-	REQUIRE(lteProc(args) == true);
+	REQUIRE(lteProc(args));
 
 	args.clear();
 	args = { Atom(2.0), Atom(1.0) };
-	REQUIRE(lteProc(args) == false);
+	REQUIRE(!lteProc(args));
 
 	args.clear();
 	args = { Atom(1.5), Atom(1.5) };
-	REQUIRE(lteProc(args) == true);
+	REQUIRE(lteProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(lteProc(args));
@@ -133,15 +133,15 @@ TEST_CASE("Tests the less than equal procedure", "[proc]") {
 TEST_CASE("Tests the greater than procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(1.0), Atom(2.0) };
-	REQUIRE(gtProc(args) == false);
+	REQUIRE(!gtProc(args));
 
 	args.clear();
 	args = { Atom(2.0), Atom(1.0) };
-	REQUIRE(gtProc(args) == true);
+	REQUIRE(gtProc(args));
 
 	args.clear();
 	args = { Atom(1.5), Atom(1.5) };
-	REQUIRE(gtProc(args) == false);
+	REQUIRE(!gtProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(gtProc(args));
@@ -162,15 +162,15 @@ TEST_CASE("Tests the greater than procedure", "[proc]") {
 TEST_CASE("Tests the greater than equal procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(1.0), Atom(2.0) };
-	REQUIRE(gteProc(args) == false);
+	REQUIRE(!gteProc(args));
 
 	args.clear();
 	args = { Atom(2.0), Atom(1.0) };
-	REQUIRE(gteProc(args) == true);
+	REQUIRE(gteProc(args));
 
 	args.clear();
 	args = { Atom(1.5), Atom(1.5) };
-	REQUIRE(gteProc(args) == true);
+	REQUIRE(gteProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(gteProc(args));
@@ -191,15 +191,15 @@ TEST_CASE("Tests the greater than equal procedure", "[proc]") {
 TEST_CASE("Tests the equal procedure", "[proc]") {
 
 	std::vector<Atom> args = { Atom(1.0), Atom(2.0) };
-	REQUIRE(equalProc(args) == false);
+	REQUIRE(!equalProc(args));
 
 	args.clear();
 	args = { Atom(2.0), Atom(1.0) };
-	REQUIRE(equalProc(args) == false);
+	REQUIRE(!equalProc(args));
 
 	args.clear();
 	args = { Atom(1.5), Atom(1.5) };
-	REQUIRE(equalProc(args) == true);
+	REQUIRE(equalProc(args));
 
 	args.clear();
 	REQUIRE_THROWS(equalProc(args));
