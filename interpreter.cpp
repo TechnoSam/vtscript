@@ -51,7 +51,7 @@ Expression Interpreter::postEval(Expression exp) {
 			}
 			return result;
 		}
-		else if (exp.getAtom().getSymbol() == "define") {
+		if (exp.getAtom().getSymbol() == "define") {
 			std::vector<Expression> children = exp.getChildren();
 			if (children.size() != 2)
 				throw InterpreterSemanticError("Improper number of args");
@@ -69,7 +69,7 @@ Expression Interpreter::postEval(Expression exp) {
 				env.define(symbol, EnvEntry(value.getAtom().getNumber()));
 			return value;
 		}
-		else if (exp.getAtom().getSymbol() == "if") {
+		if (exp.getAtom().getSymbol() == "if") {
 			std::vector<Expression> children = exp.getChildren();
 			if (children.size() != 3)
 				throw InterpreterSemanticError("Improper number of args");
@@ -106,8 +106,7 @@ Expression Interpreter::postEval(Expression exp) {
 
 		if (proc.getType() == EnvEntry::Type::FPTR_BOOL) 
 			return Expression(proc.getFptrBool()(args));
-		else 
-			return Expression(proc.getFptrNumber()(args));
+		return Expression(proc.getFptrNumber()(args));
 
 	}
 	else {
@@ -118,11 +117,9 @@ Expression Interpreter::postEval(Expression exp) {
 			EnvEntry value = env.fetch(exp.getAtom().getSymbol());
 			if (value.getType() == EnvEntry::Type::BOOL)
 				return Expression(value.getBool());
-			else
-				return Expression(value.getNumber());
+			return Expression(value.getNumber());
 		}
-		else
-			return exp;
+		return exp;
 
 	}
 

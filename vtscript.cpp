@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 		return EXIT_FAILURE;
 	}
 	// This isn't the best way to do commandline parsing, but it doesn't really matter
-	else if (argc == 3) { // Short inline program
+	if (argc == 3) { // Short inline program
 		std::string flag = argv[1];
 		if (flag != "-e") {
 			std::cerr << usage << std::endl;
