@@ -364,7 +364,7 @@ TEST_CASE( "Test all syntactically and semantically CORRECT files.", "[interpret
   }
 }
 
-TEST_CASE("Tests some weird cases", "[interpreter]") {
+TEST_CASE("Tests some weird cases", "[interperter]") {
 
 	Interpreter interp;
 
