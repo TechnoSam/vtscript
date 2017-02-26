@@ -10,7 +10,7 @@
 
 #include "proc.hpp"
 #include "interpreter_semantic_error.hpp"
-#include "EnvEntry.hpp"
+#include "env_entry.hpp"
 
 class Environment {
 

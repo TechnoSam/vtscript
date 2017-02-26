@@ -1,7 +1,7 @@
 // File: Atom.cpp
 // Author: Samuel McFalls
 
-#include "Atom.hpp"
+#include "atom.hpp"
 
 Atom::Atom() {
 

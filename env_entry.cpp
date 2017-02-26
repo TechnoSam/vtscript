@@ -1,7 +1,7 @@
 // File: EnvEntry.cpp
 // Author: Samuel McFalls
 
-#include "EnvEntry.hpp"
+#include "env_entry.hpp"
 
 EnvEntry::EnvEntry() {
 

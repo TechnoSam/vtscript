@@ -3,7 +3,7 @@
 
 #include "catch.hpp"
 
-#include "EnvEntry.hpp"
+#include "env_entry.hpp"
 
 #include <vector>
 #include <string>

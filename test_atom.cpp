@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "Atom.hpp"
+#include "atom.hpp"
 
 TEST_CASE("Tests the Atom constructors", "[atom]") {
 
