@@ -99,8 +99,6 @@ bool Atom::operator==(const Atom& rhs) const noexcept {
 		case Atom::Type::SYMBOL:
 			isEqual = (this->symbolVal == rhs.symbolVal);
 			break;
-		default:
-			isEqual = false;
 		}
 	}
 

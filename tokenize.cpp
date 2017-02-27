@@ -160,8 +160,6 @@ Atom Tokenizer::selectAtom(std::string value) {
 	case Atom::Type::SYMBOL:
 		atom = Atom(value);
 		break;
-	default:
-		atom = Atom();
 	}
 
 	return atom;
