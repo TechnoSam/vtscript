@@ -53,8 +53,9 @@ Atom::Type Atom::getType() {
 
 bool Atom::getBool() {
 
-	if (type != Atom::Type::BOOL)
+	if (type != Atom::Type::BOOL) {
 		throw std::logic_error("Atom is not of type Bool");
+	}
 
 	return boolVal;
 
@@ -62,8 +63,9 @@ bool Atom::getBool() {
 
 double Atom::getNumber() {
 
-	if (type != Atom::Type::NUMBER)
+	if (type != Atom::Type::NUMBER) {
 		throw std::logic_error("Atom is not of type Number");
+	}
 
 	return numberVal;
 
@@ -71,8 +73,9 @@ double Atom::getNumber() {
 
 std::string Atom::getSymbol() {
 
-	if (type != Atom::Type::SYMBOL)
+	if (type != Atom::Type::SYMBOL) {
 		throw std::logic_error("Atom is not of type Symbol");
+	}
 
 	return symbolVal;
 

@@ -66,8 +66,9 @@ EnvEntry::Type EnvEntry::getType() {
 
 bool EnvEntry::getBool() {
 
-	if (type != BOOL)
+	if (type != BOOL) {
 		throw std::logic_error("Environment Entry is not of type Bool");
+	}
 
 	return boolVal;
 
@@ -75,8 +76,9 @@ bool EnvEntry::getBool() {
 
 double EnvEntry::getNumber() {
 
-	if (type != NUMBER)
+	if (type != NUMBER) {
 		throw std::logic_error("Environment Entry is not of type Number");
+	}
 
 	return numberVal;
 
@@ -84,8 +86,9 @@ double EnvEntry::getNumber() {
 
 EnvEntry::fptrBool EnvEntry::getFptrBool() {
 
-	if (type != FPTR_BOOL)
+	if (type != FPTR_BOOL) {
 		throw std::logic_error("Environment Entry is not of type Bool Function Pointer");
+	}
 
 	return boolFunc;
 
@@ -93,8 +96,9 @@ EnvEntry::fptrBool EnvEntry::getFptrBool() {
 
 EnvEntry::fptrNumber EnvEntry::getFptrNumber() {
 
-	if (type != FPTR_NUMBER)
+	if (type != FPTR_NUMBER) {
 		throw std::logic_error("Environment Entry is not of type Number Function Pointer");
+	}
 
 	return numberFunc;
 

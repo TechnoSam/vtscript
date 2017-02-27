@@ -210,8 +210,9 @@ bool Tokenizer::isOnlyDouble(const char* str) {
 	char* endptr = 0;
 	strtod(str, &endptr);
 
-	if (*endptr != '\0' || endptr == str)
+	if (*endptr != '\0' || endptr == str) {
 		return false;
+	}
 	return true;
 
 }

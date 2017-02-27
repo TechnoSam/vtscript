@@ -42,8 +42,9 @@ Expression Interpreter::postEval(Expression exp) {
 	if (exp.getAtom().getType() == Atom::Type::SYMBOL) {
 		if (exp.getAtom().getSymbol() == "begin") {
 			std::vector<Expression> children = exp.getChildren();
-			if (children.empty())
+			if (children.empty()) {
 				throw InterpreterSemanticError("No children");
+			}
 			Expression result;
 			for (auto it = children.begin(); it != children.end(); ++it) {
 				Expression child = *it;
@@ -53,33 +54,43 @@ Expression Interpreter::postEval(Expression exp) {
 		}
 		if (exp.getAtom().getSymbol() == "define") {
 			std::vector<Expression> children = exp.getChildren();
-			if (children.size() != 2)
+			if (children.size() != 2) {
 				throw InterpreterSemanticError("Improper number of args");
-			if (children.at(0).getAtom().getType() != Atom::Type::SYMBOL)
+			}
+			if (children.at(0).getAtom().getType() != Atom::Type::SYMBOL) {
 				throw InterpreterSemanticError("First argument is not a symbol");
+			}
 			std::string symbol = children.at(0).getAtom().getSymbol();
-			if (symbol == "begin" || symbol == "define" || symbol == "if")
+			if (symbol == "begin" || symbol == "define" || symbol == "if") {
 				throw InterpreterSemanticError("Attempt to redefine special form");
-			if (env.exists(symbol))
+			}
+			if (env.exists(symbol)) {
 				throw InterpreterSemanticError("Attempt to redefine existing symbol");
+			}
 			Expression value = postEval(children.at(1));
-			if (value.getAtom().getType() == Atom::Type::BOOL)
+			if (value.getAtom().getType() == Atom::Type::BOOL) {
 				env.define(symbol, EnvEntry(value.getAtom().getBool()));
-			else// if (value.getAtom().getType() == Atom::Type::NUMBER)
+			}
+			else {// if (value.getAtom().getType() == Atom::Type::NUMBER)
 				env.define(symbol, EnvEntry(value.getAtom().getNumber()));
+			}
 			return value;
 		}
 		if (exp.getAtom().getSymbol() == "if") {
 			std::vector<Expression> children = exp.getChildren();
-			if (children.size() != 3)
+			if (children.size() != 3) {
 				throw InterpreterSemanticError("Improper number of args");
+			}
 			Expression condExp = postEval(children.at(0));
-			if (condExp.getAtom().getType() != Atom::Type::BOOL)
+			if (condExp.getAtom().getType() != Atom::Type::BOOL) {
 				throw InterpreterSemanticError("Condition is not a boolean");
-			if (condExp.getAtom().getBool())
+			}
+			if (condExp.getAtom().getBool()) {
 				return postEval(children.at(1));
-			else
+			}
+			else {
 				return postEval(children.at(2));
+			}
 		}
 	}
 	// If we're not a special form, evaluate all the children of the current expression
@@ -104,24 +115,26 @@ Expression Interpreter::postEval(Expression exp) {
 
 	if (isProc) {
 
-		if (proc.getType() == EnvEntry::Type::FPTR_BOOL) 
+		if (proc.getType() == EnvEntry::Type::FPTR_BOOL) {
 			return Expression(proc.getFptrBool()(args));
+		}
 		return Expression(proc.getFptrNumber()(args));
 
 	}
 	else {
 
-		if (!children.empty()) 
+		if (!children.empty()) {
 			throw InterpreterSemanticError("No such procedure");
+		}
 		if (exp.getAtom().getType() == Atom::Type::SYMBOL) {
 			EnvEntry value = env.fetch(exp.getAtom().getSymbol());
-			if (value.getType() == EnvEntry::Type::BOOL)
+			if (value.getType() == EnvEntry::Type::BOOL) {
 				return Expression(value.getBool());
+			}
 			return Expression(value.getNumber());
 		}
 		return exp;
 
 	}
-
 
 }
