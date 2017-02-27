@@ -386,3 +386,42 @@ TEST_CASE("Tests some weird cases", "[interperter]") {
 	REQUIRE(run(prog4) == Expression(159600.));
 
 }
+
+TEST_CASE("Tests edge cases previously missed", "[interperter]") {
+
+	std::vector<std::string> programs = { "(begin)", // Too few arguments
+		"(define)", // Too few arguments
+		"(define a 2 3)", // Too many args
+		"(if)", // Too few args
+		"(if True 1 2 3)", // Too many args
+		"(define 1 2)", // Cannot define a number
+		"(@ 1)" // Valid child, but no such procedure
+	};
+
+	for (auto s : programs) {
+		Interpreter interp;
+
+		std::istringstream iss(s);
+
+		bool ok = interp.parse(iss);
+		REQUIRE(ok);
+
+		REQUIRE_THROWS_AS(interp.eval(), InterpreterSemanticError);
+	}
+
+}
+
+TEST_CASE("Tests defining a BOOL", "[interperter]") {
+
+	Interpreter interp;
+
+	std::string prog = "(begin(define check True)(if check 1 2))";
+
+	std::istringstream iss(prog);
+
+	bool ok = interp.parse(iss);
+	REQUIRE(ok);
+
+	REQUIRE(interp.eval() == Expression(1.));
+
+}
