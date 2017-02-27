@@ -43,6 +43,12 @@ TEST_CASE("Tests tokenizer method", "[tokenize]") {
 	tkns_check = { "(", "if", "(", "<", "a", "b", ")", "b", ")", "a" };
 	REQUIRE(tkns == tkns_check);
 
+
+	// Passes tokenization but not building
+	prog = "(begin((4)))";
+	std::stringstream ss7(prog);
+	REQUIRE_NOTHROW(tkns = tkn.tokenize(ss7));
+	REQUIRE_THROWS(tkn.buildAST(tkns));
 }
 
 TEST_CASE("Tests ASTBuilder method", "[tokenize]") {
