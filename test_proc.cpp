@@ -269,6 +269,10 @@ TEST_CASE("Tests the sub procedure", "[proc]") {
 	args = { Atom(true), Atom(false) };
 	REQUIRE_THROWS(subProc(args));
 
+	args.clear();
+	args = { Atom(true) };
+	REQUIRE_THROWS(subProc(args));
+
 }
 
 TEST_CASE("Tests the mult procedure", "[proc]") {
@@ -325,6 +329,10 @@ TEST_CASE("Tests the div procedure", "[proc]") {
 
 	args.clear();
 	args = { Atom(1.0), Atom(2.0), Atom(3.0) };
+	REQUIRE_THROWS(divProc(args));
+
+	args.clear();
+	args = { Atom(true), Atom(false) };
 	REQUIRE_THROWS(divProc(args));
 
 }
