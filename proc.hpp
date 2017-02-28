@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "interpreter_semantic_error.hpp"
-#include "Atom.hpp"
+#include "atom.hpp"
 
 // unary expression of Booleans
 // @param args The arguments to the procedure. Required BOOL type

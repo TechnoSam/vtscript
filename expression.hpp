@@ -7,7 +7,7 @@
 #include <vector>
 #include <string>
 
-#include "Atom.hpp"
+#include "atom.hpp"
 
 class Expression {
 

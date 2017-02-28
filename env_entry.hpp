@@ -6,7 +6,7 @@
 
 #include <vector>
 
-#include "Atom.hpp"
+#include "atom.hpp"
 
 class EnvEntry {
 
