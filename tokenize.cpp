@@ -205,12 +205,13 @@ bool Tokenizer::isValidToken(std::string token) {
 
 bool Tokenizer::isOnlyDouble(const char* str) {
 
+	bool ret = true;
 	char* endptr = 0;
 	strtod(str, &endptr);
 
 	if (*endptr != '\0' || endptr == str) {
-		return false;
+		ret = false;
 	}
-	return true;
+	return ret;
 
 }
